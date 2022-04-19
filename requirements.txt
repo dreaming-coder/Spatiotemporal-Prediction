@@ -1,0 +1,5 @@
+watchdog~=2.1.7
+torch~=1.11.0+cu113
+matplotlib~=3.5.1
+numpy~=1.22.3
+pillow~=9.1.0

@@ -64,3 +64,8 @@ each batch. The following shows how it works.
 <p align="center">
     <img src="resources/imgs/patch.png" />
 </p>
+
+## Results
+
+I have pre-trained such models and store them in <a href="https://pan.baidu.com/s/1-ADwWrq2iIfpACmaTrJQZg?pwd=LOVE">
+Baidu Netdisk</a>, and give some direct images to show the quality of such models.

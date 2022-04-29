@@ -5,9 +5,9 @@
 # @description: test for ConvLSTM
 
 import unittest
+
 import torch
 
-from src.nn.ConvLSTM import ConvLSTM
 from src.nn.ConvLSTM.ConvLSTMCell import ConvLSTMCell
 
 
@@ -23,11 +23,3 @@ class TestConvLSTM(unittest.TestCase):
         self.assertTrue(hh.shape == (3, 96, 50, 50))
         self.assertTrue(cc.shape == (3, 96, 50, 50))
         hh.sum().backward()
-
-    def test_ConvLSTM(self):
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-        net = ConvLSTM().to(device)
-        inputs = torch.ones(7, 10, 1, 100, 100).to(device)
-        results = net(inputs, 10)
-        self.assertTrue(results.shape == (7, 10, 1, 100, 100))
-        results.sum().backward()

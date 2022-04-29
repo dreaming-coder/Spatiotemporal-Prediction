@@ -35,7 +35,6 @@ class FileEventHandler(FileSystemEventHandler):
     def __init__(self, src_path: str, dest_path: str):
         self.src_path = Path(src_path)
         self.dest_path = Path(dest_path)
-        assert self.dest_path.is_dir()
         if not self.dest_path.exists():
             self.dest_path.mkdir(parents=True, exist_ok=True)
         else:

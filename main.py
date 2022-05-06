@@ -1,6 +1,7 @@
 from torch.utils.data import DataLoader
 
 from nn.ConvLSTM import ConvLSTM_MovingMNIST, ConvLSTM_KTH, ConvLSTM_TaxiBJ
+from nn.TrajGRU import TrajGRU_MovingMNIST, TrajGRU_KTH, TrajGRU_TaxiBJ
 from utils.data import MovingMNISTDataset, TaxiBJDataset, KTHDataset
 from utils.trainer import Trainer
 
@@ -47,11 +48,49 @@ def train_ConvLSTM_TaxiBJ():
     test_loader = DataLoader(test_set, batch_size=1)
     validation_loader = DataLoader(validation_set, batch_size=32)
     trainer = Trainer(max_epoch=1000, device="cuda:0", to_save="results/TaxiBJ/ConvLSTM")
-    trainer.fit(convlstm, train_loader, validation_loader)
+    # trainer.fit(convlstm, train_loader, validation_loader, ckpt_path="checkpoint_000006_0.0004277058_temp.pth")
 
-    # trainer.predict(convlstm, test_loader=test_loader,
-    #                 ckpt_path="")
+    trainer.predict(convlstm, test_loader=test_loader,
+                    ckpt_path="results/TaxiBJ/ConvLSTM/checkpoint_000042_0.0002923203_temp.pth")
+
+
+def train_TrajGRU_MovingMNIST():
+    trajgru = TrajGRU_MovingMNIST()
+    train_set = MovingMNISTDataset("train")
+    test_set = MovingMNISTDataset("test")
+    validation_set = MovingMNISTDataset("validation")
+    train_loader = DataLoader(train_set, batch_size=8, shuffle=True)
+    test_loader = DataLoader(test_set, batch_size=1)
+    validation_loader = DataLoader(validation_set, batch_size=8)
+    trainer = Trainer(max_epoch=1000, device="cuda:0", to_save="results/MovingMNIST/TrajGRU")
+    # trainer.fit(trajgru, train_loader, validation_loader)
+    trainer.predict(trajgru, test_loader=test_loader,
+                    ckpt_path="results/MovingMNIST/TrajGRU/checkpoint_000068_0.0182023518_temp.pth")
+
+
+def train_TrajGRU_KTH():
+    trajgru = TrajGRU_KTH()
+    train_set = KTHDataset("train")
+    test_set = KTHDataset("test")
+    validation_set = KTHDataset("validation")
+    train_loader = DataLoader(train_set, batch_size=8, shuffle=True)
+    test_loader = DataLoader(test_set, batch_size=1)
+    validation_loader = DataLoader(validation_set, batch_size=8)
+    trainer = Trainer(max_epoch=1000, device="cuda:0", to_save="results/KTH/TrajGRU")
+    trainer.fit(trajgru, train_loader, validation_loader)
+
+
+def train_TrajGRU_TaxiBJ():
+    trajgru = TrajGRU_TaxiBJ()
+    train_set = TaxiBJDataset("train")
+    test_set = TaxiBJDataset("test")
+    validation_set = TaxiBJDataset("validation")
+    train_loader = DataLoader(train_set, batch_size=32, shuffle=True)
+    test_loader = DataLoader(test_set, batch_size=1)
+    validation_loader = DataLoader(validation_set, batch_size=32)
+    trainer = Trainer(max_epoch=1000, device="cuda:0", to_save="results/TaxiBJ/TrajGRU")
+    trainer.fit(trajgru, train_loader, validation_loader)
 
 
 if __name__ == '__main__':
-    train_ConvLSTM_TaxiBJ()
+    train_TrajGRU_MovingMNIST()

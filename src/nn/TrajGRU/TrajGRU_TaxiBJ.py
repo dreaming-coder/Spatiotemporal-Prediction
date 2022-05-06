@@ -60,19 +60,19 @@ class Encoder(nn.Module):
     def __init__(self, in_channels=2):
         super().__init__()
         self.conv1 = nn.Sequential(
-            nn.Conv2d(in_channels=in_channels, out_channels=8, kernel_size=3, stride=2, padding=1),  # 输出 64 x 64
+            nn.Conv2d(in_channels=in_channels, out_channels=8, kernel_size=3, stride=2, padding=1),  # 输出 16 x 16
             nn.LeakyReLU(negative_slope=0.2)
         )
         self.layer1 = TrajGRUCell(in_channels=8, hidden_channels=64, kernel_size=5, L=13)
 
         self.conv2 = nn.Sequential(
-            nn.Conv2d(in_channels=64, out_channels=96, kernel_size=3, stride=2, padding=1),  # 输出 32 x 32
+            nn.Conv2d(in_channels=64, out_channels=96, kernel_size=3, stride=2, padding=1),  # 输出 8 x 8
             nn.LeakyReLU(negative_slope=0.2)
         )
         self.layer2 = TrajGRUCell(in_channels=96, hidden_channels=96, kernel_size=5, L=13)
 
         self.conv3 = nn.Sequential(
-            nn.Conv2d(in_channels=96, out_channels=96, kernel_size=3, stride=2, padding=1),  # 输出 16 x 16
+            nn.Conv2d(in_channels=96, out_channels=96, kernel_size=3, stride=2, padding=1),  # 输出 4 x 4
             nn.LeakyReLU(negative_slope=0.2)
         )
         self.layer3 = TrajGRUCell(in_channels=96, hidden_channels=96, kernel_size=3, L=9)

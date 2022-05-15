@@ -73,11 +73,13 @@ def train_TrajGRU_KTH():
     train_set = KTHDataset("train")
     test_set = KTHDataset("test")
     validation_set = KTHDataset("validation")
-    train_loader = DataLoader(train_set, batch_size=8, shuffle=True)
+    train_loader = DataLoader(train_set, batch_size=4, shuffle=True)
     test_loader = DataLoader(test_set, batch_size=1)
-    validation_loader = DataLoader(validation_set, batch_size=8)
+    validation_loader = DataLoader(validation_set, batch_size=4)
     trainer = Trainer(max_epoch=1000, device="cuda:0", to_save="results/KTH/TrajGRU")
-    trainer.fit(trajgru, train_loader, validation_loader)
+    # trainer.fit(trajgru, train_loader, validation_loader)
+    trainer.predict(trajgru, test_loader=test_loader,
+                    ckpt_path="results/KTH/TrajGRU/checkpoint_000010_0.0022632122_temp.pth")
 
 
 def train_TrajGRU_TaxiBJ():
@@ -89,8 +91,10 @@ def train_TrajGRU_TaxiBJ():
     test_loader = DataLoader(test_set, batch_size=1)
     validation_loader = DataLoader(validation_set, batch_size=32)
     trainer = Trainer(max_epoch=1000, device="cuda:0", to_save="results/TaxiBJ/TrajGRU")
-    trainer.fit(trajgru, train_loader, validation_loader)
+    # trainer.fit(trajgru, train_loader, validation_loader)
+    trainer.predict(trajgru, test_loader=test_loader,
+                    ckpt_path="results/TaxiBJ/TrajGRU/checkpoint_000208_0.0002979137_temp.pth")
 
 
 if __name__ == '__main__':
-    train_TrajGRU_MovingMNIST()
+    train_TrajGRU_TaxiBJ()
